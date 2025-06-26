@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Empowering Digital Innovation | DORTEX AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hero {
+      /* Show only the Dortex AI logo as the hero background, centered and sized appropriately */
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center top/cover no-repeat;
+      position: relative;
+      min-height: 380px; /* Reduced from 420px to 380px */
+      padding-top: 0px; /* Reduced from 10px to 0px for even less upper space */
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(234,246,251,0.7);
+      z-index: 1;
+    }
+    .hero-logo {
+      display: block;
+      margin: 0 auto 24px auto;
+      max-width: 320px;
+      width: 80vw;
+      height: auto;
+      z-index: 2;
+      position: relative;
+    }
+    .hero > *:not(.hero-logo) {
+      position: relative;
+      z-index: 2;
+    }
+    html, body {
+      font-size: 22px;
+      background: #eaf6fb;
+      width: 100vw;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      background: #eaf6fb !important;
+    }
+    main, header, section, .hero {
+      background: none !important;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    @media (max-width: 700px) {
+      html, body {
+        font-size: 18px;
+        background: #fff;
+      }
+    }
+    nav {
+      background: #fff;
+      color: #222;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: relative;
+      z-index: 10;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    .nav-links li {
+      position: relative;
+    }
+    .nav-links a {
+      color: #222;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      background: #eaf6fb;
+    }
+    .nav-links a[href="#about"]:hover,
+    .nav-links a[href="#about"]:focus,
+    .nav-links a[href="#contact"]:hover,
+    .nav-links a[href="#contact"]:focus {
+      background: #eaf6fb;
+      color: #23406e;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(35,64,110,0.07);
+      transition: background 0.2s, color 0.2s;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      border-radius: 0 0 8px 8px;
+      min-width: 220px;
+      z-index: 100;
+      padding: 8px 0;
+    }
+    .nav-links li:hover > .dropdown,
+    .nav-links li:focus-within > .dropdown {
+      display: block;
+    }
+    .dropdown a {
+      display: block;
+      padding: 10px 24px;
+      color: #23406e;
+      background: none;
+      border-radius: 0;
+      font-size: 0.98em;
+    }
+    .dropdown a:hover {
+      background: #eaf6fb;
+      color: #111;
+    }
+    footer {
+      background: #23406e !important;
+      color: #fff !important;
+      border-top: 1px solid #23406e !important;
+    }
+    .footer-links a,
+    .footer-links a:visited,
+    .footer-links a:hover,
+    .footer-links a:active,
+    footer p {
+      color: #fff !important;
+      background: #23406e !important;
+    }
+    .footer-links a:hover,
+    .footer-links a:active {
+      color: #eaf6fb !important;
+      background: #19325a !important;
+    }
+    .hero h1 {
+      color: #23406e;
+      /* Light navy blue */
+      text-shadow: none;
+    }
+    .hero-tags {
+      font-size: 0.85em;
+    }
+    .placement-list.two-rows-placement {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      justify-items: center;
+      align-items: center;
+      gap: 24px;
+      margin: 32px 0;
+      padding: 0;
+      list-style: none;
+    }
+    .placement-list.two-rows-placement li {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      padding: 36px 0 24px 0;
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.08em;
+      transition: box-shadow 0.2s;
+      grid-column: auto;
+      grid-row: auto;
+    }
+    .placement-list.two-rows-placement li.centered-placement:first-of-type {
+      grid-column: 2 / span 2;
+      grid-row: 1;
+      justify-self: center;
+    }
+    .placement-list.two-rows-placement li.centered-placement:last-of-type {
+      grid-column: 2 / span 2;
+      grid-row: 2;
+      justify-self: center;
+    }
+    @media (max-width: 1100px) {
+      .placement-list.two-rows-placement {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+      }
+      .placement-list.two-rows-placement li {
+        width: 100%;
+        min-width: 0;
+        min-height: 90px;
+        font-size: 0.98em;
+      }
+      .placement-list.two-rows-placement li.centered-placement {
+        grid-column: 1 / span 2 !important;
+      }
+    }
+    @media (max-width: 900px) {
+      .placement-list.two-rows-placement {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .placement-list.two-rows-placement li {
+        min-width: 0;
+        width: 100%;
+        min-height: 70px;
+        font-size: 0.98em;
+        padding: 18px 6px 12px 6px;
+      }
+      .placement-list.two-rows-placement li.centered-placement {
+        grid-column: 1 / span 2 !important;
+      }
+    }
+    @media (max-width: 700px) {
+      .placement-list.two-rows-placement {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(7, 1fr);
+        gap: 12px;
+      }
+      .placement-list.two-rows-placement li {
+        width: 100%;
+        min-width: 0;
+        min-height: 60px;
+        font-size: 0.92em;
+        padding: 12px 0 8px 0;
+      }
+      .placement-list.two-rows-placement li.centered-placement {
+        grid-column: 1 !important;
+      }
+    }
+    .training-grid.two-rows-training {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 24px;
+      margin: 32px 0;
+      padding: 0;
+    }
+    .training-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      padding: 36px 0 24px 0;
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.08em;
+      transition: box-shadow 0.2s;
+    }
+    .training-card.centered-training {
+      grid-column: 2 / span 1;
+      justify-self: center;
+    }
+    /* Responsive adjustments for both training and placement */
+    @media (max-width: 1100px) {
+      .training-grid.two-rows-training {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+      }
+      .training-card, .placement-list.two-rows-placement li {
+        width: 150px;
+        height: 90px;
+        font-size: 0.98em;
+      }
+      .placement-list.two-rows-placement li.centered-placement {
+        grid-column: 1 / span 2 !important;
+      }
+    }
+    @media (max-width: 900px) {
+      .training-grid.two-rows-training {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .placement-list.two-rows-placement {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .training-card, .placement-list.two-rows-placement li {
+        min-width: 0;
+        width: 100%;
+        min-height: 70px;
+        font-size: 0.98em;
+        padding: 18px 6px 12px 6px;
+      }
+      .training-card.centered-training,
+      .placement-list.two-rows-placement li.centered-placement {
+        grid-column: 1 / span 2 !important;
+      }
+    }
+    @media (max-width: 700px) {
+      .training-grid.two-rows-training {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
+        gap: 10px;
+      }
+      .placement-list.two-rows-placement {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(7, 1fr);
+        gap: 10px;
+      }
+      .training-card, .placement-list.two-rows-placement li {
+        min-width: 0;
+        width: 100%;
+        min-height: 48px;
+        font-size: 0.92em;
+        padding: 10px 6px 8px 6px;
+      }
+      .training-card.centered-training,
+      .placement-list.two-rows-placement li.centered-placement {
+        grid-column: 1 !important;
+      }
+    }
+    @media (max-width: 500px) {
+      .training-card, .placement-list.two-rows-placement li {
+        min-height: 36px;
+        font-size: 0.88em;
+        padding: 8px 2px 6px 2px;
+      }
+    }
+    /* Flex for contact grid */
+    .contact-grid {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 900px) {
+      .contact-grid {
+        flex-direction: column;
+        gap: 18px;
+      }
+    }
+    /* Responsive testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 24px 0;
+    }
+    @media (max-width: 900px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+    }
+    @media (max-width: 700px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+    /* Responsive footer */
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    /* Hide scroll on nav open */
+    body.nav-open {
+      overflow: hidden;
+    }
+    /* Ensure viewport is set for mobile responsiveness */
+    @media (max-width: 900px) {
+      html, body {
+        width: 100vw;
+        overflow-x: hidden;
+      }
+      main, header, section, .hero {
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+    }
+    /* --- FULLY RESPONSIVE IMPROVEMENTS FOR ALL SECTIONS --- */
+    /* Remove fixed px paddings/margins for mobile, use % or vw where possible */
+    @media (max-width: 900px) {
+      .hero {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .services-grid.two-rows-services,
+      .training-grid.two-rows-training,
+      .placement-list.two-rows-placement,
+      .testimonials-grid {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      .service-card, .training-card, .placement-list.two-rows-placement li {
+        width: 100%;
+        max-width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+      }
+    }
+    @media (max-width: 700px) {
+      .hero {
+        min-height: 180px;
+        padding-top: 0;
+      }
+      .hero-logo {
+        max-width: 100px;
+        width: 50vw;
+      }
+      .hero h1 {
+        font-size: 1em;
+      }
+      .hero-cta .btn {
+        padding: 8px 12px;
+        font-size: 0.95em;
+      }
+      .hero-tags {
+        font-size: 0.7em;
+      }
+      .services-grid.two-rows-services,
+      .training-grid.two-rows-training,
+      .placement-list.two-rows-placement,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: unset;
+        gap: 8px;
+        margin: 8px 0;
+      }
+      .service-card, .training-card, .placement-list.two-rows-placement li {
+        min-width: 0;
+        width: 100vw;
+        max-width: 100vw;
+        min-height: 40px;
+        font-size: 0.9em;
+        padding: 8px 2vw 6px 2vw;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+        width: 100vw;
+        max-width: 100vw;
+        box-sizing: border-box;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      footer p {
+        font-size: 0.85em;
+      }
+    }
+    @media (max-width: 500px) {
+      .hero-logo {
+        max-width: 70px;
+      }
+      .service-card, .training-card, .placement-list.two-rows-placement li {
+        font-size: 0.85em;
+        min-height: 28px;
+        padding: 6px 1vw 4px 1vw;
+      }
+      .footer-links {
+        font-size: 0.9em;
+      }
+    }
+    /* Make sure all containers and cards never overflow horizontally */
+    .services-grid.two-rows-services,
+    .training-grid.two-rows-training,
+    .placement-list.two-rows-placement,
+    .testimonials-grid,
+    .service-card, .training-card, .placement-list.two-rows-placement li {
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    /* Remove horizontal scroll for all elements */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    /* --- Hamburger menu always in top right on mobile/tablet --- */
+    .nav-toggle {
+      display: none;
+    }
+    @media (max-width: 900px) {
+      .nav-toggle {
+        display: block;
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        z-index: 2002;
+        cursor: pointer;
+      }
+      .nav-toggle span,
+      .nav-toggle span:before,
+      .nav-toggle span:after {
+        display: block;
+        background: #23406e;
+        height: 4px;
+        width: 28px;
+        border-radius: 2px;
+        position: absolute;
+        left: 6px;
+        transition: all 0.3s;
+        content: '';
+      }
+      .nav-toggle span {
+        position: relative;
+        top: 16px;
+      }
+      .nav-toggle span:before {
+        content: '';
+        top: -10px;
+        position: absolute;
+      }
+      .nav-toggle span:after {
+        content: '';
+        top: 10px;
+        position: absolute;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100vw;
+        width: 80vw;
+        height: 100vh;
+        background: #fff;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding-top: 80px;
+        transition: right 0.3s;
+        box-shadow: -2px 0 16px rgba(0,0,0,0.08);
+        z-index: 2001;
+      }
+      .nav-links.open {
+        right: 0;
+      }
+      .logo {
+        position: fixed;
+        left: 18px;
+        top: 18px;
+        z-index: 2003;
+        background: #fff;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 1.1em;
+      }
+    }
+    /* Increase card heights for service, training, and placement cards */
+    .service-card, .training-card, .placement-list.two-rows-placement li {
+      min-height: 160px;
+    }
+    @media (max-width: 900px) {
+      .service-card, .training-card, .placement-list.two-rows-placement li {
+        min-height: 120px;
+      }
+    }
+    @media (max-width: 700px) {
+      .service-card, .training-card, .placement-list.two-rows-placement li {
+        min-height: 90px;
+      }
+    }
+    @media (max-width: 500px) {
+      .service-card, .training-card, .placement-list.two-rows-placement li {
+        min-height: 60px;
+      }
+    }
+    /* Increase only Training & Placement box heights */
+    .placement-list.two-rows-placement li {
+      min-height: 200px;
+    }
+    @media (max-width: 900px) {
+      .placement-list.two-rows-placement li {
+        min-height: 150px;
+      }
+    }
+    @media (max-width: 700px) {
+      .placement-list.two-rows-placement li {
+        min-height: 110px;
+      }
+    }
+    @media (max-width: 500px) {
+      .placement-list.two-rows-placement li {
+        min-height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">DORTEX AI</div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li>
+          <a href="#services">Services</a>
+          <div class="dropdown">
+            <a href="#web">Web Development</a>
+            <a href="#app">App Development</a>
+            <a href="#seo">SEO & Digital Marketing</a>
+            <a href="#data">Data Analysis</a>
+            <a href="#ai">AI/ML</a>
+            <a href="#cloud">Cloud Services</a>
+            <a href="#uiux">UI/UX Design</a>
+          </div>
+        </li>
+        <li>
+          <a href="#training">Training</a>
+          <div class="dropdown">
+            <a href="#hr">HR Training</a>
+            <a href="#bpo">BPO Training</a>
+            <a href="#immigration">Immigration Training</a>
+            <a href="#logistics">Logistics Training</a>
+            <a href="#it">IT Training</a>
+            <a href="#legal">Legal Firms Training</a>
+          </div>
+        </li>
+        <li>
+          <a href="#about">About</a>
+          <div class="dropdown">
+            <a href="#why">Why Choose Us</a>
+          </div>
+        </li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <section class="hero">
+      <img src="WhatsApp Image 2025-06-25 at 16.44.10_53bfb0ce.jpg" alt="DORTEX AI Logo" class="hero-logo" />
+      <h1>Empowering Digital Innovation</h1>
+      <p>We deliver all IT services under one roof,<br>helping you scale, innovate, and lead in the digital era.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn">Get Started</a>
+        <a href="#contact" class="btn secondary">Contact Us</a>
+      </div>
+      <p class="hero-tags">Web, Mobile, Cloud, AI, Data, Design & More</p>
+    </section>
+  </header>
+  <main>
+    <section id="home"></section>
+    <section id="services">
+      <h2>Our Services</h2>
+      <div class="services-grid two-rows-services">
+        <div class="service-card"><span class="service-icon">💻</span><h3>Web Development</h3><p>Modern, scalable, and secure websites tailored to your business needs.</p></div>
+        <div class="service-card"><span class="service-icon">📱</span><h3>App Development</h3><p>Cross-platform mobile apps with seamless user experience and performance.</p></div>
+        <div class="service-card"><span class="service-icon">📈</span><h3>SEO & Digital Marketing</h3><p>Boost your online presence and reach your target audience effectively.</p></div>
+        <div class="service-card"><span class="service-icon">📊</span><h3>Data Analysis</h3><p>Unlock insights from your data to drive smarter business decisions.</p></div>
+        <div class="service-card"><span class="service-icon">🤖</span><h3>AI/ML</h3><p>Leverage artificial intelligence and machine learning for innovation.</p></div>
+        <div class="service-card"><span class="service-icon">☁️</span><h3>Cloud Services</h3><p>Scalable cloud solutions for agility, security, and cost savings.</p></div>
+      </div>
+      <div class="services-grid one-row-uiux">
+        <div class="service-card"><span class="service-icon">🎨</span><h3>UI/UX Design</h3><p>Intuitive and engaging designs for delightful user experiences.</p></div>
+      </div>
+    </section>
+    <section id="training">
+      <h2>We Provide Training In</h2>
+      <div class="training-grid two-rows-training">
+        <div class="training-card"><span class="training-icon">🧑‍💼</span><h4>HR Training</h4><p>Modern HR practices, recruitment, payroll, and compliance.</p></div>
+        <div class="training-card"><span class="training-icon">📞</span><h4>BPO Training</h4><p>Communication, process, and client handling for BPO/KPO jobs.</p></div>
+        <div class="training-card"><span class="training-icon">🛂</span><h4>Immigration Training</h4><p>Visa processing, documentation, and client counseling.</p></div>
+        <div class="training-card"><span class="training-icon">🚚</span><h4>Logistics Training</h4><p>Supply chain, warehouse, and logistics management.</p></div>
+        <div class="training-card centered-training"><span class="training-icon">💻</span><h4>IT Training</h4><p>Full stack, web, software, and support skills.</p></div>
+        <div class="training-card"><span class="training-icon">⚖️</span><h4>Legal Firms Training</h4><p>Legal process, documentation, and client management.</p></div>
+      </div>
+    </section>
+    <section id="placement">
+      <h2>Training & Placement</h2>
+      <ul class="placement-list two-rows-placement">
+        <li class="centered-placement"><span class="placement-icon">👨‍🏫</span> One-to-One Sessions</li>
+        <li><span class="placement-icon">💻</span> Live Projects</li>
+        <li><span class="placement-icon">🎤</span> Interview Prep</li>
+        <li><span class="placement-icon">📄</span> Resume Building</li>
+        <li><span class="placement-icon">🎓</span> Certification</li>
+        <li><span class="placement-icon">💼</span> Job Assistance</li>
+        <li class="centered-placement"><span class="placement-icon">🖥️</span> IT Training (2 months)</li>
+      </ul>
+      <div class="placement-note-grid">
+        <div class="placement-note-item">All trainings are just 1 month <span style="color:#888; font-size:0.9em;">(except IT Training - 2 months)</span>.</div>
+        <div class="placement-note-item">Fees only <strong>₹5,000 – ₹8,000!</strong> Get certified, get placed. Limited seats.</div>
+      </div>
+      <div class="register-row-box">
+        <div class="register-row-centered">
+          <a class="register-btn whatsapp" href="https://wa.me/917991492897?text=Hi%20Vireonix%20Team%2C%20I%20want%20to%20register%20for%20training.%20Here%20is%20my%20resume." target="_blank" rel="noopener"><span class="register-icon">🟢</span> Register on WhatsApp</a>
+          <a class="register-btn call" href="tel:+917991492897"><span class="register-icon">📞</span> Call to Register</a>
+        </div>
+      </div>
+    </section>
+    <section id="why">
+      <h2>Why Choose Us</h2>
+      <ul class="why-list" style="margin-left: 0; padding-left: 0; text-align: left; font-size: 1.05em; list-style-type: none;">
+        <li><span class="right-click-yellow"></span>Practical learning with real-world projects and hands-on experience.</li>
+        <li><span class="right-click-yellow"></span>Expert mentors from the industry with years of experience.</li>
+        <li><span class="right-click-yellow"></span>100% placement assistance and career guidance.</li>
+        <li><span class="right-click-yellow"></span>Cutting-edge curriculum updated with latest tech trends.</li>
+        <li><span class="right-click-yellow"></span>Vibrant community, hackathons, webinars, and networking events.</li>
+      </ul>
+      <div class="why-stats">
+        <div><strong>10+</strong><br/>Years of Excellence</div>
+        <div><strong>500+</strong><br/>Projects Delivered</div>
+        <div><strong>1000+</strong><br/>Students Trained</div>
+      </div>
+    </section>
+    <section id="testimonials">
+      <h2>What Our Clients Say</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Amit S." />
+          <blockquote>“Vireonix helped me land my dream job! The training was hands-on and the mentors were amazing. The placement support is real!”</blockquote>
+          <p><strong>Amit S.</strong><br/>Software Engineer, Bangalore</p>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya K." />
+          <blockquote>“The projects and interview prep gave me the confidence to ace my interviews. Highly recommend their training programs!”</blockquote>
+          <p><strong>Priya K.</strong><br/>UI/UX Designer, Delhi</p>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Rahul D." />
+          <blockquote>“Great experience! The team is supportive and the learning is practical. I loved the hackathons and webinars.”</blockquote>
+          <p><strong>Rahul D.</strong><br/>Data Analyst, Mumbai</p>
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <div class="contact-grid">
+        <form class="contact-form">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+        <div class="contact-info">
+          <p><strong>Email:</strong> dortexAi.com</p>
+          <p><strong>Phone:</strong> +91 7991492897</p>
+          <p><strong>Address:</strong> Sector74, 8B, Mohali, India</p>
+          <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#services">Web Development</a>
+      <a href="#training">Training</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>© 2025  DortexAI. All rights reserved. | Designed with ♥ by Team DortexAI</p>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    // Hamburger menu functionality for mobile
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    navToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('open');
+      document.body.classList.toggle('nav-open');
+    });
+    // Close menu when a link is clicked (mobile UX)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+        document.body.classList.remove('nav-open');
+      });
+    });
+  </script>
+</body>
+</html>
